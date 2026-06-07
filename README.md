@@ -42,9 +42,14 @@ the reference):
   **both iOS and Android**. Treat the version field as unreliable; judge success by
   behaviour (bot boots and runs normally, expected new features/sounds present), not by
   the number.
-- **The in-app OTA often stalls, especially on iOS** (Android usually completes fine).
-  The reliable route is a **manual microSD ("TF card") install** of the full recovery
-  package rather than the in-app OTA.
+- **The in-app OTA frequently fails to complete.** In the public update packages we
+  examined, the runtime files (`ipcupdate`, `mcu.bin`, `param.bin`) were **missing**, so
+  the device couldn't finish the update and reverted to the old firmware (console:
+  *"Update file does not exist. Running current file."*). Aionios instead describes the
+  problem as an **iOS-app-side issue** (saying Android generally completes fine) and has
+  not confirmed the packaging gap — so the two explanations don't fully line up. Either
+  way, the **reliable route is a manual microSD ("TF card") install** of the full
+  recovery package rather than the in-app OTA.
 - **Getting the recovery package:** message the official Aionios Facebook page ("Send
   Message" — an auto-reply bot returns a download link). Unzip and copy **all** files to
   the **root** of the TF card (not a subfolder), reinsert, power on, and leave it
