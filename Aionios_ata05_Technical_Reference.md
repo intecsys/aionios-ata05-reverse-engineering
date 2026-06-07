@@ -2638,23 +2638,23 @@ firmware version sometimes mis-reports V13 vs V14.
 > back up, the app will correctly display the new firmware version,
 > confirming the update was fully applied."*
 
-In practice, this fix works for backers on Android but **frequently
-does NOT resolve the issue on iOS**, as reported by multiple backers
-in the comment thread on the same update (multiple backers:
-*"Still not updating from iPhone app, showing old firmware after
-powering on and off and reformatting memory card"*). The community
-identified the iOS-specific nature of the problem **before** Aionios
-publicly acknowledged it. The follow-up Kickstarter Update #20 (one
-week later, see §12.1) introduced the TF-card manual install method
-specifically because Update #19's restart procedure was insufficient
-on iOS.
+In practice, this remedy is **not reliable**. Multiple backers reported it
+failing on iOS (in the comment thread on the same update: *"Still not updating
+from iPhone app, showing old firmware after powering on and off and reformatting
+memory card"*) — and on this maintainer's own unit the displayed version did
+**not** refresh after a restart on **either iOS or Android**: it kept showing the
+old version even though the firmware was otherwise applied and the bot ran
+normally. The follow-up Kickstarter Update #20 (one week later, see §12.1)
+introduced the TF-card manual install method specifically because Update #19's
+restart procedure was insufficient.
 
-**Root cause:** for Android-side displays this is genuinely a
-cosmetic app-side reporting artefact and a power-cycle clears it.
-For iOS, it is a symptom of an actual app-to-bot synchronisation
-fault in the OTA flow (the firmware never successfully reaches the
-bot via the iOS app's transport path). The MCU itself is functional
-in both cases regardless of what the phone app displays.
+**Practical takeaway:** treat the app's version field as **unreliable on both
+platforms** — contrary to the official remediation, a restart does not dependably
+correct it. Do not use the displayed version as proof of what is actually
+installed. Judge update success by behaviour instead: the recovery package
+applied without error, the bot boots and operates normally, and the expected new
+features/startup sounds are present. The MCU and firmware can be fully functional
+regardless of what the phone app shows.
 
 ### 12.3 Audio Encoder Init Failure
 
