@@ -31,6 +31,30 @@ manufacturer communication** — established purely by hands-on investigation:
 - **The companion-MCU debug console** (pinout, baud, GB2312/GBK output) and its
   decoded status-heartbeat telemetry.
 
+## Firmware updates — what you need to know
+
+This is the part most owners run into, so here's the short version (full detail in
+the reference):
+
+- **Don't trust the version number in the app.** It can show `00.00.00.00`, or keep
+  showing V13 after you've updated to V14. Aionios says a restart clears this — but in
+  hands-on testing the displayed version did **not** correct itself after a restart, on
+  **both iOS and Android**. Treat the version field as unreliable; judge success by
+  behaviour (bot boots and runs normally, expected new features/sounds present), not by
+  the number.
+- **The in-app OTA often stalls, especially on iOS** (Android usually completes fine).
+  The reliable route is a **manual microSD ("TF card") install** of the full recovery
+  package rather than the in-app OTA.
+- **Getting the recovery package:** message the official Aionios Facebook page ("Send
+  Message" — an auto-reply bot returns a download link). Unzip and copy **all** files to
+  the **root** of the TF card (not a subfolder), reinsert, power on, and leave it
+  undisturbed ~5 minutes while it restarts a few times.
+- **V15 is served through that same link.** The URL never changed — the content behind
+  it was silently updated from V14 to V15. If you fetched your package a while ago you
+  probably have V14; fetching it again now gives V15.
+- **Never power off or restart during an OTA update** — interrupting it can brick the
+  device. Back up first if you can (see the backup/recovery section).
+
 ## What's inside
 
 - **Hardware overview** — all four PCBs (main `EC501_MB`, sub `EC501_SUB`, the
