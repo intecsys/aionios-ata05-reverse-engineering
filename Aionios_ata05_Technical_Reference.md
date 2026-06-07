@@ -1246,7 +1246,7 @@ current file.` to the console and reverts to the running firmware.
 the U-Boot/kernel/RTOS images are included; the three runtime files
 (`ipcupdate`, `mcu.bin`, `param.bin`) are absent. The update therefore cannot
 complete, and the device runs whatever the previously installed application
-was. See [Section 12.1](#121-firmware-update-package-incomplete).
+was. See [Section 12.1](#121-firmware-update-ota-failure-incomplete-update-package).
 
 ---
 
@@ -2543,7 +2543,7 @@ flasher on the SPI-NOR pads).
 
 ## 12. Known Issues and Bugs
 
-### 12.1 Firmware Update OTA Failure (iOS-Specific) — Officially Acknowledged
+### 12.1 Firmware Update OTA Failure — Incomplete Update Package
 
 **Manufacturer status update:** This issue has now been **publicly
 acknowledged by Aionios** in Kickstarter Update #20 (March 10, 2026,
@@ -2559,15 +2559,29 @@ The "restart steps shared in Update #19" referenced above are simply
 the OTA — a minimal procedure that turned out to be insufficient for
 iOS users specifically; see §12.2 for the full Update #19 context.
 
-The previously-undocumented finding of this manual (the OTA packages
-shipped from the manufacturer were not completing the runtime portion
-of the upgrade) is officially resolved as **an iOS-app-side bug** in
-the OTA flow, not a missing-files problem in the OTA archive itself. A
-follow-up confirmation from Aionios:
+**Our own analysis takes precedence here over the manufacturer's framing.**
+Direct inspection of the public update packages (see §4.3) showed the three
+runtime files (`ipcupdate`, `mcu.bin`, `param.bin`) **missing** from the archive
+— only the U-Boot/kernel/RTOS images were present — so the device could not
+complete the runtime portion of the upgrade and reverted to the previously
+installed application, logging *"Update file does not exist. Running current
+file."* That is a concrete, reproducible packaging defect that we verified
+on-device.
+
+Aionios instead characterises the failure as **an iOS-app-side bug** in the OTA
+flow rather than a missing-files problem, and states that Android generally
+completes fine:
 
 > *"Android users can generally complete OTA updates smoothly without
 > issues. This TF card manual update method is primarily tailored for
 > iOS users who've been encountering persistent OTA upgrade problems."*
+
+These two accounts do **not** fully reconcile: a pure iOS-transport bug would not
+explain the runtime files being absent from the package we examined, and we could
+not independently confirm the iOS-specific attribution. We therefore record the
+**missing-files packaging defect as the documented, verified cause**, and treat
+the manufacturer's iOS-app-bug explanation as their account rather than an
+established root cause.
 
 **Critical operational warning** (per Kickstarter Update #17, February
 2026):
