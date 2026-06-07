@@ -13,6 +13,24 @@ device the author owns.
 > void its warranty and may brick it — proceed at your own risk. See the full
 > scope/legal note at the top of the reference document.
 
+## Notable findings
+
+A few things documented here that are **not described in any official manual or
+manufacturer communication** — established purely by hands-on investigation:
+
+- **Two on-board IR emitters.** The bot has two built-in infrared emitters for night
+  vision. They are driven by the in-app **fill-light button, but only while in night
+  mode** — in colour mode the same button switches on two white LEDs instead. This is
+  easy to miss: testing night vision *without* enabling the fill-light makes the robot
+  look like it has no IR at all. Confirmed by phone-camera test (the emitters also
+  glow faintly red to the naked eye, suggesting ~850 nm parts).
+- **The full LinxPort / LinxKey accessory protocol**, reconstructed and
+  **CRC-verified** byte-for-byte — including the laser on/off operate flow (`0x01` =
+  on, `0x00` = off) and the app↔plugin data tunnel — beyond what the official DIY
+  material specifies.
+- **The companion-MCU debug console** (pinout, baud, GB2312/GBK output) and its
+  decoded status-heartbeat telemetry.
+
 ## What's inside
 
 - **Hardware overview** — all four PCBs (main `EC501_MB`, sub `EC501_SUB`, the
