@@ -2583,6 +2583,18 @@ not independently confirm the iOS-specific attribution. We therefore record the
 the manufacturer's iOS-app-bug explanation as their account rather than an
 established root cause.
 
+**Hands-on V15 result — verified by flash dump, not by the app.** On a unit
+starting from an older firmware, the V15 package was run through Aionios's manual
+microSD route; it completed its on-device steps (startup sound, several reboots)
+and the bot booted and operated normally afterwards. However, a subsequent full
+MTD dump (§11) **still read V14** — so V15 did **not** actually install. This
+verdict comes from reading the flash directly, *not* from the unreliable app
+version field (§12.2), which makes it solid: it is direct, display-independent
+confirmation of the packaging defect above — the runtime portion of the upgrade
+never landed, even via the microSD route. **Practical consequence:** a microSD
+run that "completes" with normal sounds and reboots is **not** proof the new
+firmware is installed; only a flash-dump comparison (§11) settles it.
+
 **Critical operational warning** (per Kickstarter Update #17, February
 2026):
 

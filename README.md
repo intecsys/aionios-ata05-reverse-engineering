@@ -48,15 +48,20 @@ the reference):
   *"Update file does not exist. Running current file."*). Aionios instead describes the
   problem as an **iOS-app-side issue** (saying Android generally completes fine) and has
   not confirmed the packaging gap — so the two explanations don't fully line up. Either
-  way, the **reliable route is a manual microSD ("TF card") install** of the full
-  recovery package rather than the in-app OTA.
+  way, Aionios's recommended workaround is a manual microSD ("TF card") install of
+  the full recovery package rather than the in-app OTA — though note this did **not**
+  reliably work for us either (see the V15 note below).
 - **Getting the recovery package:** message the official Aionios Facebook page ("Send
   Message" — an auto-reply bot returns a download link). Unzip and copy **all** files to
   the **root** of the TF card (not a subfolder), reinsert, power on, and leave it
   undisturbed ~5 minutes while it restarts a few times.
-- **V15 is served through that same link.** The URL never changed — the content behind
-  it was silently updated from V14 to V15. If you fetched your package a while ago you
-  probably have V14; fetching it again now gives V15.
+- **V15 is served through that same link — but getting it is not the same as installing
+  it.** The URL never changed; the content behind it was silently updated from V14 to
+  V15. In our own attempt the V15 microSD run completed its on-device steps and the bot
+  booted normally, yet a full **flash dump afterwards still read V14** — i.e. V15 did
+  **not** actually install (consistent with the missing-files defect above). The app's
+  version field cannot confirm this either way; the only trustworthy check is reading the
+  flash directly. Don't assume a "completed" run means V15 is on.
 - **Never power off or restart during an OTA update** — interrupting it can brick the
   device. Back up first if you can (see the backup/recovery section).
 
